@@ -13,8 +13,28 @@ class AppController extends Controller
         return inertia('Index');
     }
 
-    public function passwordAuth()
+    public function register()
     {
-        return redirect(route('users.index'))->withSuccess("Login successful");
+        return inertia('Auth/Register');
+    }
+
+    public function login()
+    {
+        return inertia('Auth/Login');
+    }
+
+    public function passwordAuth(Request $request)
+    {
+        sleep(3);
+        $request->validate([
+            "email" => "required|exists:users,email",
+            "password" => "required|string|min:6|in:p2892deu089uwd,89wydhlhedg89w"
+        ]);
+        return redirect(route('dashboard.index'))->withSuccess("Login successful");
+    }
+
+    public function googleAuth(Request $request)
+    {
+        return redirect(route('dashboard.index'))->withSuccess("Login successful");
     }
 }
